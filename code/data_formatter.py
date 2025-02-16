@@ -1,4 +1,10 @@
+import csv
+import os
 from datetime import datetime
+from tabulate import tabulate
+
+OUTPUT_DIR = "outputs"
+OUTPUT_FILE = f"{OUTPUT_DIR}/repositorios_formatados.csv"
 
 def safe_get(dictionary, keys, default="N/A"):
     """ Obtém um valor aninhado de um dicionário de forma segura. """
@@ -9,7 +15,6 @@ def safe_get(dictionary, keys, default="N/A"):
     return dictionary if dictionary is not None else default
 
 def process_repositories(repos):
-
     processed_repos = []
     now = datetime.utcnow()
 
@@ -44,3 +49,41 @@ def process_repositories(repos):
             print(f"Erro inesperado ao processar repositório '{safe_get(repo, ['name'])}': {e}")
 
     return processed_repos
+
+def save_to_csv(repositories):
+    """Salva os dados processados em um arquivo CSV formatado corretamente."""
+    os.makedirs(OUTPUT_DIR, exist_ok=True)
+
+    with open(OUTPUT_FILE, "w", newline="", encoding="utf-8") as file:
+        writer = csv.writer(file, delimiter=";", quotechar='"', quoting=csv.QUOTE_MINIMAL)
+        writer.writerow(["Nome", "Idade (dias)", "PRs", "Releases", "Última Atualização (dias)", "Linguagem", "Fechamento de Issues (%)"])
+        
+        formatted_data = []
+        for repo in repositories:
+            row = [
+                repo["name"],
+                repo["age_days"],
+                repo["pull_requests"],
+                repo["releases"],
+                repo["time_since_last_update"],
+                repo["primary_language"],
+                repo["issue_ratio"]
+            ]
+            writer.writerow(row)
+            formatted_data.append(row)
+    
+    print_formatted_output(formatted_data)
+
+def print_formatted_output(formatted_data=None):
+    """Exibe os dados no terminal de maneira formatada."""
+    if formatted_data is None:
+        formatted_data = []
+    
+    print("\n Repositórios Populares Formatados \n")
+    print(tabulate(
+        formatted_data, 
+        headers=["Nome", "Idade (dias)", "PRs", "Releases", "Última Atualização (dias)", "Linguagem", "Fechamento de Issues (%)"], 
+        tablefmt="fancy_grid", 
+        numalign="right"
+    ))
+    print(f"\n Arquivo CSV formatado salvo em: {OUTPUT_FILE}")
