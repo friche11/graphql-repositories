@@ -22,7 +22,7 @@ TOKEN = os.getenv("GITHUB_TOKEN")
 
 GITHUB_API_URL = "api.github.com"
 
-def fetch_github_data(limit=100):
+def fetch_github_data(limit=1000):
     """Faz requisições paginadas à API do GitHub para obter repositórios."""
 
     if not TOKEN:
