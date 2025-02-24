@@ -24,23 +24,23 @@ Neste estudo, analisamos os 1.000 repositórios mais populares do GitHub, consid
 #### RQ 06. Sistemas populares possuem um alto percentual de issues fechadas?
   _Acreditamos que esses sistemas possuem um alto percentual de issues fechadas._
 
-### RQ 07 Sistemas escritos em linguagens mais populares recebem mais contribuição externa, lançam mais releases e são atualizados com mais frequência? 
+#### RQ 07 Sistemas escritos em linguagens mais populares recebem mais contribuição externa, lançam mais releases e são atualizados com mais frequência? 
   _Esperamos que sistemas escritos em linguagens mais populares recebam mais contribuidores, lancem mais releases e sejam atualizados com mais frequência._
 
 ## Metodologia
 
 Para responder às questões de pesquisa, coletamos dados de 1.000 repositórios com maior número de estrelas no GitHub utilizando GraphQL. As informações foram obtidas por meio da query.gql utilizando a API do GitHub e analisadas de acordo com os seguintes dados:
-    - Nome do repositório (_name_),
-    - Idade do repositório pela data de criação (_createdAt_),
-    - Total de pull requests aceitas (_pullRequests(_states:_ _MERGED_)_),
-    - Total de releases (_releases_),
-    - Data da última atualização (_updatedAt_),
-    - Linguagem primária (_primaryLanguage_),
-    - Total de issues fechadas (_closedIssues: issues(states: CLOSED)_),
-    - Total de issues (_totalIssues_),
-    - Data do último commit na branch principal (_defaultBranchRef.target.committedDate_).
+  - Nome do repositório (_name_),
+  - Idade do repositório pela data de criação (_createdAt_),
+  - Total de pull requests aceitas (_pullRequests(_states:_ _MERGED_)_),
+  - Total de releases (_releases_),
+  - Data da última atualização (_updatedAt_),
+  - Linguagem primária (_primaryLanguage_),
+  - Total de issues fechadas (_closedIssues: issues(states: CLOSED)_),
+  - Total de issues (_totalIssues_),
+  - Data do último commit na branch principal (_defaultBranchRef.target.committedDate_).
 
-  - Paginação: Para obter os dados dos 1.000 repositórios, implementamos um mecanismo de paginação. A cada requisição, buscamos um lote de 20 repositórios e utilizamos o cursor _endCursor_ para continuar a busca na próxima página até atingir o limite de 1.000 repositórios.
+Paginação: Para obter os dados dos 1.000 repositórios, implementamos um mecanismo de paginação. A cada requisição, buscamos um lote de 20 repositórios e utilizamos o cursor _endCursor_ para continuar a busca na próxima página até atingir o limite de 1.000 repositórios.
 
 ### Processamento dos Dados
 
