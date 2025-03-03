@@ -3,7 +3,7 @@ import os
 from datetime import datetime
 from tabulate import tabulate
 
-OUTPUT_DIR = "outputs"
+OUTPUT_DIR = "../outputs"
 OUTPUT_FILE = f"{OUTPUT_DIR}/repositorios_formatados.csv"
 
 def safe_get(dictionary, keys, default="N/A"):
@@ -33,7 +33,7 @@ def process_repositories(repos):
             # Tratamento para issues
             total_issues = safe_get(repo, ["totalIssues", "totalCount"], 0)
             closed_issues = safe_get(repo, ["closedIssues", "totalCount"], 0)
-            issue_ratio = f"{(closed_issues / total_issues) * 100:.2f}%" if total_issues > 0 else "N/A"
+            issue_ratio = int(round((closed_issues / total_issues) * 100)) if total_issues > 0 else ""
 
             processed_repos.append({
                 "name": safe_get(repo, ["name"]),

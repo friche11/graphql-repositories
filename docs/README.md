@@ -1,1 +1,1 @@
-## Documentação do projeto, incluindo relatório final
+## Documentação do projeto, incluindo relatório final e planilha com valores medianos
